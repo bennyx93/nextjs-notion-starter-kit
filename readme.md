@@ -95,12 +95,6 @@ It should be pretty easy to customize most styling-related things, especially wi
 
 ## Dark Mode
 
-<p align="center">
-  <img alt="Light Mode" src="https://transitive-bs.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F83ea9f0f-4761-4c0b-b53e-1913627975fc%2Ftransitivebullsh.it_-opt.jpg?table=block&id=ed7e8f60-c6d1-449e-840b-5c7762505c44&spaceId=fde5ac74-eea3-4527-8f00-4482710e1af3&width=2000&userId=&cache=v2" width="45%"> 
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Dark Mode" src="https://transitive-bs.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc0839d6c-7141-48df-8afd-69b27fed84aa%2Ftransitivebullsh.it__(1)-opt.jpg?table=block&id=23b11fe5-d6df-422d-9674-39cf7f547523&spaceId=fde5ac74-eea3-4527-8f00-4482710e1af3&width=2000&userId=&cache=v2" width="45%">
-</p>
-
 Dark mode is fully supported and can be toggled via the sun / moon icon in the footer.
 
 ## Automatic Table of Contents
@@ -116,10 +110,6 @@ If a page has less than `minTableOfContentsItems` (default 3), the table of cont
 This table of contents uses the same logic that Notion uses for its built-in Table of Contents block (see [getPageTableOfContents](https://github.com/NotionX/react-notion-x/blob/master/packages/notion-utils/src/get-page-table-of-contents.ts) for the underlying logic).
 
 ## Responsive
-
-<p align="center">
-  <img alt="Mobile article page" src="https://user-images.githubusercontent.com/552829/160132983-c2dd5830-80b3-4a0e-a8f1-abab5dbeed11.jpg" width="300">
-</p>
 
 All pages are designed to be responsive across common device sizes.
 
@@ -138,5 +128,3 @@ See the [contribution guide](contributing.md) and join our amazing list of [cont
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)
-
-Support my open source work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
