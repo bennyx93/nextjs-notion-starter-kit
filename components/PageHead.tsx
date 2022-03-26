@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Script from 'next/script'
 import * as React from 'react'
 import * as types from 'lib/types'
 
@@ -23,11 +24,11 @@ export const PageHead: React.FC<types.PageProps> = ({ site }) => {
 
       <meta name='theme-color' content='#3d5a80' />
       <meta property='og:type' content='website' />
-      <script
+      <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=G-D0S0ZYJD28`}
       />
-      <script
+      <Script
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
