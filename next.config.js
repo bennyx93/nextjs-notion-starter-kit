@@ -12,7 +12,7 @@ module.exports = withBundleAnalyzer({
       'images.unsplash.com',
       'pbs.twimg.com',
       'abs.twimg.com',
-      'transitivebullsh.it'
+      'bennychan.dev',
     ],
     formats: ['image/avif', 'image/webp']
   }
