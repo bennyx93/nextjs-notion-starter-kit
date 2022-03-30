@@ -1,5 +1,5 @@
 export default {
-  // where it all starts -- the site's root Notion page (required)
+  // the site's root Notion page (required)
   rootNotionPageId: '2dbe7ebefac24e42bd9e0d572ac04e7e',
 
   // if you want to restrict pages to a single notion workspace (optional)
