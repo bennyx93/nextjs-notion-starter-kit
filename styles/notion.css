@@ -34,12 +34,10 @@
   margin-bottom: 1em;
 }
 
-/* <-- Fix embedded video's size overflows its container */
 .notion-asset-wrapper-video > div,
 .notion-asset-wrapper-video video {
   width: 100% !important;
 }
-/* Fix embedded video's size overflows its container --> */
 
 .notion-header .nav-header {
   max-width: 1100px;
@@ -52,7 +50,7 @@
   gap: 6vmin;
 }
 
-.notion-gallery-grid .notion-page-icon {
+.notion-gallery-grid .notion-page-icon-inline {
   display: none;
 }
 
@@ -207,7 +205,8 @@
 }
 
 .notion-link:hover {
-  border-width: 3px;
+  border-width: 0;
+  border-bottom-width: 3px;
   border-image: linear-gradient(90.68deg, #b439df 0.26%, #3d5a80 102.37%);
   border-image-slice: 1;
 }
@@ -310,10 +309,6 @@
   margin: 0;
   border-radius: 0;
   background: none !important;
-}
-
-.notion-block-f382a57807bc40779860eb079d0144f2 .lazy-image-wrapper {
-  border-radius: 16px;
 }
 
 /* if you don't want rounded page icon images, remove this */
