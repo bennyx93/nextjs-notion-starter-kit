@@ -76,7 +76,7 @@ export default withOGImage<'query', 'id'>({
       //   config.description
 
       const timePublished = getPageProperty<number>(
-        'Published',
+        'Created',
         block,
         recordMap
       )
