@@ -15,10 +15,9 @@ import { Tweet, TwitterContextProvider } from 'react-static-tweets'
 import { NotionRenderer } from 'react-notion-x'
 
 // utils
-import { getBlockTitle } from 'notion-utils'
+import { getBlockTitle, getPageProperty } from 'notion-utils'
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
-import { getPageDescription } from 'lib/get-page-description'
 import { getPageTweet } from 'lib/get-page-tweet'
 import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
@@ -123,12 +122,15 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const minTableOfContentsItems = 3
 
   const socialImage = mapImageUrl(
-    (block as PageBlock).format?.page_cover || config.defaultPageCover,
+    getPageProperty<string>('Social Image', block, recordMap) ||
+      (block as PageBlock).format?.page_cover ||
+      config.defaultPageCover,
     block
   )
 
   const socialDescription =
-    getPageDescription(block, recordMap) ?? config.description
+    getPageProperty<string>('Description', block, recordMap) ||
+    config.description
 
   let pageAside: React.ReactNode = null
 
@@ -153,6 +155,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
       }}
     >
       <PageHead
+        pageId={pageId}
         site={site}
         title={title}
         description={socialDescription}
