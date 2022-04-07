@@ -6,8 +6,9 @@
  */
 
 import { parsePageId } from 'notion-utils'
-import { getSiteConfig, getEnv } from './get-config-value'
-import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from './types'
+import posthog from 'posthog-js'
+import { getEnv, getSiteConfig } from './get-config-value'
+import { PageUrlOverridesInverseMap, PageUrlOverridesMap } from './types'
 
 export const rootNotionPageId: string = parsePageId(
   getSiteConfig('rootNotionPageId'),
@@ -26,18 +27,18 @@ export const rootNotionSpaceId: string | null = parsePageId(
 
 export const pageUrlOverrides = cleanPageUrlMap(
   getSiteConfig('pageUrlOverrides', {}) || {},
-  'pageUrlOverrides'
+  { label: 'pageUrlOverrides' }
+)
+
+export const pageUrlAdditions = cleanPageUrlMap(
+  getSiteConfig('pageUrlAdditions', {}) || {},
+  { label: 'pageUrlAdditions' }
 )
 
 export const inversePageUrlOverrides = invertPageUrlOverrides(pageUrlOverrides)
 
-export const pageUrlAdditions = cleanPageUrlMap(
-  getSiteConfig('pageUrlAdditions', {}) || {},
-  'pageUrlAdditions'
-)
-
-export const isDev =
-  process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+export const environment = process.env.NODE_ENV || 'development'
+export const isDev = environment === 'development'
 
 // general site config
 export const name: string = getSiteConfig('name')
@@ -113,22 +114,31 @@ export const host = isDev ? `http://localhost:${port}` : `https://${domain}`
 export const apiBaseUrl = `/api`
 
 export const api = {
-  searchNotion: `${apiBaseUrl}/search-notion`
+  searchNotion: `${apiBaseUrl}/search-notion`,
+  getSocialImage: `${apiBaseUrl}/social-image`
 }
 
 // ----------------------------------------------------------------------------
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
-
 export const fathomConfig = fathomId
   ? {
       excludedDomains: ['localhost', 'localhost:3000']
     }
   : undefined
 
+export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
+export const posthogConfig: posthog.Config = {
+  api_host: 'https://app.posthog.com'
+}
+
 function cleanPageUrlMap(
   pageUrlMap: PageUrlOverridesMap,
-  label: string
+  {
+    label
+  }: {
+    label: string
+  }
 ): PageUrlOverridesMap {
   return Object.keys(pageUrlMap).reduce((acc, uri) => {
     const pageId = pageUrlMap[uri]
