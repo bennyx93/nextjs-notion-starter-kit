@@ -1,6 +1,6 @@
 {
   "name": "nextjs-notion-starter-kit",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "description": "The perfect starter kit for building beautiful websites with Next.js and Notion.",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
@@ -35,20 +35,21 @@
     "fathom-client": "^3.4.1",
     "got": "^12.0.3",
     "isomorphic-unfetch": "^3.1.0",
+    "katex": "^0.15.3",
     "lqip-modern": "^1.2.0",
     "next": "^12.1.1",
     "next-api-og-image": "^2.2.1",
     "node-fetch": "^2.6.1",
-    "notion-client": "^6.7.0",
+    "notion-client": "^6.9.3-6.10.0-alpha.0.0",
     "notion-types": "^6.7.0",
-    "notion-utils": "^6.7.0",
+    "notion-utils": "^6.9.3-6.10.0-alpha.0.0",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
     "posthog-js": "^1.20.2",
     "react": "^17.0.2",
     "react-body-classname": "^1.3.1",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^6.7.2",
+    "react-notion-x": "^6.9.3-6.10.0-alpha.0.0",
     "react-static-tweets": "^0.7.2",
     "react-use": "^17.3.2",
     "static-tweets": "^0.7.2"
@@ -68,6 +69,10 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1",
     "typescript": "^4.4.4"
+  },
+  "resolutions": {
+    "next-api-og-image/chrome-aws-lambda": "6.0.0",
+    "next-api-og-image/puppeteer-core": "6.0.0"
   },
   "overrides": {
     "cacheable-request": {
