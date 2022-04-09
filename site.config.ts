@@ -15,8 +15,6 @@ export default siteConfig({
 
   // open graph metadata (optional)
   description: 'Benny Chan\'s Portfolio',
-  socialImageTitle: 'Benny Chan',
-  socialImageSubtitle: 'Hello World! 👋',
 
   // social usernames (optional)
   github: 'bennyx93',
