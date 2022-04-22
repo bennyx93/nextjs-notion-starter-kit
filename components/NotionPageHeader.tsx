@@ -1,26 +1,45 @@
-import React from 'react'
+import * as React from 'react'
 import cs from 'classnames'
-import useDarkMode from '@fisch0920/use-dark-mode'
+import { useTheme } from 'next-themes'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
-
 import { Header, Breadcrumbs, Search, useNotionContext } from 'react-notion-x'
+import * as types from 'notion-types'
 
-import * as types from 'lib/types'
 import { navigationStyle, navigationLinks, isSearchEnabled } from 'lib/config'
 
 import styles from './styles.module.css'
 
-export const NotionPageHeader: React.FC<{
-  block: types.CollectionViewPageBlock | types.PageBlock
-}> = ({ block }) => {
-  const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+const ToggleThemeButton = () => {
   const [hasMounted, setHasMounted] = React.useState(false)
-  const { components, mapPageUrl } = useNotionContext()
+  const { resolvedTheme, setTheme } = useTheme()
 
   React.useEffect(() => {
     setHasMounted(true)
   }, [])
+
+  const onToggleTheme = React.useCallback(() => {
+    setTheme(resolvedTheme === 'light' ? 'dark' : 'light')
+  }, [resolvedTheme, setTheme])
+
+  return (
+    <div
+      className={cs('breadcrumb', 'button', !hasMounted && styles.hidden)}
+      onClick={onToggleTheme}
+    >
+      {hasMounted && resolvedTheme === 'dark' ? (
+        <IoMoonSharp />
+      ) : (
+        <IoSunnyOutline />
+      )}
+    </div>
+  )
+}
+
+export const NotionPageHeader: React.FC<{
+  block: types.CollectionViewPageBlock | types.PageBlock
+}> = ({ block }) => {
+  const { components, mapPageUrl } = useNotionContext()
 
   if (navigationStyle === 'default') {
     return <Header block={block} />
@@ -62,13 +81,7 @@ export const NotionPageHeader: React.FC<{
             })
             .filter(Boolean)}
 
-          <div className={cs('breadcrumb', 'button')} onClick={darkMode.toggle}>
-            {hasMounted && darkMode.value ? (
-              <IoMoonSharp />
-            ) : (
-              <IoSunnyOutline />
-            )}
-          </div>
+          <ToggleThemeButton />
 
           {isSearchEnabled && <Search block={block} title={null} />}
         </div>

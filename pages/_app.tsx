@@ -7,9 +7,6 @@ import 'react-notion-x/src/styles.css'
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 
-// used for tweet embeds (optional)
-import 'react-static-tweets/styles.css'
-
 // used for code syntax highlighting (optional)
 import 'prismjs/themes/prism-coy.css'
 
@@ -22,9 +19,10 @@ import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 
-import React from 'react'
-import { useRouter } from 'next/router'
+import * as React from 'react'
 import * as Fathom from 'fathom-client'
+import { useRouter } from 'next/router'
+import { ThemeProvider } from 'next-themes'
 import posthog from 'posthog-js'
 
 import { bootstrap } from 'lib/bootstrap-client'
@@ -63,5 +61,9 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return (
+    <ThemeProvider disableTransitionOnChange>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  )
 }

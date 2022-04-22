@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -6,10 +6,10 @@ import cs from 'classnames'
 import { useRouter } from 'next/router'
 import { useSearchParam } from 'react-use'
 import BodyClassName from 'react-body-classname'
-import useDarkMode from '@fisch0920/use-dark-mode'
+import { useTheme } from 'next-themes'
 import { PageBlock } from 'notion-types'
 
-import { Tweet, TwitterContextProvider } from 'react-static-tweets'
+import TweetEmbed from 'react-tweet-embed'
 
 // core notion renderer
 import { NotionRenderer } from 'react-notion-x'
@@ -18,7 +18,6 @@ import { NotionRenderer } from 'react-notion-x'
 import { getBlockTitle, getPageProperty, formatDate } from 'notion-utils'
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
-import { getPageTweet } from 'lib/get-page-tweet'
 import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
 import * as config from 'lib/config'
@@ -27,9 +26,8 @@ import * as config from 'lib/config'
 import { Loading } from './Loading'
 import { Page404 } from './Page404'
 import { PageHead } from './PageHead'
-import { PageActions } from './PageActions'
+import { PageAside } from './PageAside'
 import { Footer } from './Footer'
-import { PageSocial } from './PageSocial'
 import { NotionPageHeader } from './NotionPageHeader'
 
 import styles from './styles.module.css'
@@ -103,6 +101,10 @@ const Modal = dynamic(
   }
 )
 
+const Tweet = ({ id }: { id: string }) => {
+  return <TweetEmbed tweetId={id} />
+}
+
 const propertyLastEditedTimeValue = (
   { block, pageHeader },
   defaultFn: () => React.ReactNode
@@ -171,24 +173,11 @@ export const NotionPage: React.FC<types.PageProps> = ({
     []
   )
 
-  const twitterContextValue = React.useMemo(() => {
-    if (!recordMap) {
-      return null
-    }
-
-    return {
-      tweetAstMap: (recordMap as any).tweetAstMap || {},
-      swrOptions: {
-        fetcher: (id: string) =>
-          fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
-      }
-    }
-  }, [recordMap])
-
   // lite mode is for oembed
   const isLiteMode = lite === 'true'
 
-  const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+  const { resolvedTheme } = useTheme()
+  const isDarkMode = resolvedTheme === 'dark'
 
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {}
@@ -198,14 +187,30 @@ export const NotionPage: React.FC<types.PageProps> = ({
     return mapPageUrl(site, recordMap, searchParams)
   }, [site, recordMap, lite])
 
+  const keys = Object.keys(recordMap?.block || {})
+  const block = recordMap?.block?.[keys[0]]?.value
+
+  // const isRootPage =
+  //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
+  const isBlogPost =
+    block?.type === 'page' && block?.parent_table === 'collection'
+  const showTableOfContents = !!isBlogPost
+  const minTableOfContentsItems = 3
+
+  const pageAside = React.useMemo(
+    () => (
+      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} />
+    ),
+    [block, recordMap, isBlogPost]
+  )
+
+  const footer = React.useMemo(() => <Footer />, [])
+
   if (router.isFallback) {
     return <Loading />
   }
 
-  const keys = Object.keys(recordMap?.block || {})
-  const block = recordMap?.block?.[keys[0]]?.value
-
-  if (error || !site || !keys.length || !block) {
+  if (error || !site || !block) {
     return <Page404 site={site} pageId={pageId} error={error} />
   }
 
@@ -230,13 +235,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
-  // const isRootPage =
-  //   parsePageId(block.id) === parsePageId(site.rootNotionPageId)
-  const isBlogPost =
-    block.type === 'page' && block.parent_table === 'collection'
-  const showTableOfContents = !!isBlogPost
-  const minTableOfContentsItems = 3
-
   const socialImage = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
       (block as PageBlock).format?.page_cover ||
@@ -248,20 +246,8 @@ export const NotionPage: React.FC<types.PageProps> = ({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
 
-  let pageAside: React.ReactNode = null
-
-  // only display comments and page actions on blog post pages
-  if (isBlogPost) {
-    const tweet = getPageTweet(block, recordMap)
-    if (tweet) {
-      pageAside = <PageActions tweet={tweet} />
-    }
-  } else {
-    pageAside = <PageSocial />
-  }
-
   return (
-    <TwitterContextProvider value={twitterContextValue}>
+    <>
       <PageHead
         pageId={pageId}
         site={site}
@@ -272,6 +258,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
       />
 
       {isLiteMode && <BodyClassName className='notion-lite' />}
+      {isDarkMode && <BodyClassName className='dark-mode' />}
 
       <NotionRenderer
         bodyClassName={cs(
@@ -283,7 +270,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
         rootPageId={site.rootNotionPageId}
         rootDomain={site.domain}
         fullPage={!isLiteMode}
-        darkMode={darkMode.value}
         previewImages={!!recordMap.preview_images}
         showCollectionViewDropdown={false}
         showTableOfContents={showTableOfContents}
@@ -295,9 +281,8 @@ export const NotionPage: React.FC<types.PageProps> = ({
         mapImageUrl={mapImageUrl}
         searchNotion={config.isSearchEnabled ? searchNotion : null}
         pageAside={pageAside}
-        footer={<Footer />}
+        footer={footer}
       />
-
-    </TwitterContextProvider>
+    </>
   )
 }

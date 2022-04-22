@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { IconContext } from '@react-icons/all-files'
 
@@ -47,7 +47,7 @@ export default class MyDocument extends Document {
           </Head>
 
           <body>
-            <noscript
+          <noscript
               dangerouslySetInnerHTML={{
                 __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6WMX49" height="0" width="0" style="display: none; visibility: hidden;" />`,
               }}
@@ -96,7 +96,6 @@ export default class MyDocument extends Document {
 `
               }}
             />
-
             <Main />
 
             <NextScript />
