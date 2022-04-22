@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import * as React from 'react'
 
 import * as types from 'lib/types'
 import * as config from 'lib/config'
@@ -27,7 +27,7 @@ export const PageHead: React.FC<
         content='width=device-width, initial-scale=1, shrink-to-fit=no'
       />
 
-      <meta name='theme-color' content='#3d5a80' />
+      <meta name='robots' content='index,follow' />
       <meta property='og:type' content='website' />
 
       {site && (
