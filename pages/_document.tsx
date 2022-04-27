@@ -60,12 +60,10 @@ export default class MyDocument extends Document {
   var storageKey = 'darkMode'
   var classNameDark = 'dark-mode'
   var classNameLight = 'light-mode'
-
   function setClassOnDocumentBody(darkMode) {
     document.body.classList.add(darkMode ? classNameDark : classNameLight)
     document.body.classList.remove(darkMode ? classNameLight : classNameDark)
   }
-
   var preferDarkQuery = '(prefers-color-scheme: dark)'
   var mql = window.matchMedia(preferDarkQuery)
   var supportsColorSchemeQuery = mql.media === preferDarkQuery
@@ -73,12 +71,10 @@ export default class MyDocument extends Document {
   try {
     localStorageTheme = localStorage.getItem(storageKey)
   } catch (err) {}
-
   var localStorageExists = localStorageTheme !== null
   if (localStorageExists) {
     localStorageTheme = JSON.parse(localStorageTheme)
   }
-
   // Determine the source of truth
   if (localStorageExists) {
     // source of truth from localStorage
