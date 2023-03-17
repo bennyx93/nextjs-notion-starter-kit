@@ -57,9 +57,9 @@
   integrity sha512-fsR4P/ROllzf/7lXYyElUJCheWdTJVJvOTps8v9IWKFATxR61ANOlnoPqhH099xYLrJGpc2ZQ28B3rMeUt5VQg==
 
 "@keyvhq/core@^1.6.9":
-  version "1.6.9"
-  resolved "https://registry.npmjs.org/@keyvhq/core/-/core-1.6.9.tgz"
-  integrity sha512-fD/3rq55Hr/fqPlglrET3iuhYikJWumXIZMiK/RPw8iNoyPwkL9s4AZnNyFCgR8aGRlAd4jlyCt9JtLrQCDPJQ==
+  version "1.6.26"
+  resolved "https://registry.yarnpkg.com/@keyvhq/core/-/core-1.6.26.tgz#d682b8eeebc37842527f392a524b1aa8cdda4795"
+  integrity sha512-0jy/fOVCYdo3MImM3yjdHuFZNkycPmEAq0v+UGt0dRltnXccgQ+7vCdCNbLpgP3688g5Mw8L+0vcRt5MK53UPA==
   dependencies:
     json-buffer "~3.0.1"
 
