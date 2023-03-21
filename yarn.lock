@@ -2296,7 +2296,7 @@ mime-types@2.1.13:
 
 mimic-fn@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npmjs.org/mimic-fn/-/mimic-fn-4.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-4.0.0.tgz#60a90550d5cb0b239cca65d893b1a53b29871ecc"
   integrity sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==
 
 mimic-response@^1.0.0:
@@ -2657,9 +2657,9 @@ p-map@^5.3.0:
     aggregate-error "^4.0.0"
 
 p-memoize@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/p-memoize/-/p-memoize-6.0.1.tgz"
-  integrity sha512-DG0wxA5fIYor0ypRltebDEZs45ZFRvgztFGv/+glYMdUCIaI9eZKIsNJ2IVihw6LYVUgfhIHtPG5XUgvN+pLtQ==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/p-memoize/-/p-memoize-6.0.2.tgz#d760f3687804cdc78ae96d90bc264df1d8a578d9"
+  integrity sha512-sO7/Gd4hBVn7xq8WMIiSzhOYXHVWGJhc8hpM6t7Ahuqbj/lZGssBG5mUBjLEdE84lnP64K78mNumbB9v5i4AoQ==
   dependencies:
     mimic-fn "^4.0.0"
 
